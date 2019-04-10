@@ -5,9 +5,23 @@
         <!-- This title gets displayed on the tab -->
         <title>More CSS Q3 Reflection</title>
         <!-- This link loads the Bootstrap CSS stylesheet -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">        <!-- This meta tag make the text scale correctly on desktop AND mobile browsers. -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <!-- This meta tag make the text scale correctly on desktop AND mobile browsers. -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            div.alert-danger {
+                border-style: dashed;
+                border-color: red;
+            }
+            div.row {
+                border-style: inset;
+                border-color: black;
+            }
+            div.col {
+                border-style: groove;
+                border-color: black;
+            }
+       </style>
     </head>
 
     <body>
@@ -52,27 +66,29 @@
                 </video>
             </div>
 
+            <br>
+
             <form>
                 <!-- Container is a table -->
                 <div class="container">
                     <!-- Row of images -->
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col col-md-6">
                             <img class="img-fluid" src="../assets/images/greenie.png">
                         </div>
                     
-                        <div class="col-md-4">
+                        <div class="col col-md-3">
                             <img class="img-fluid" src="../assets/images/mario.png">
                         </div>
                     
-                        <div class="col-md-4">
+                        <div class="col col-md-3">
                             <img class="img-fluid" src="../assets/images/spongebob.png">
                         </div>
                     </div>
 
                     <!-- Row of questions and text boxes -->
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col col-md-6">
                             <div class="form-group">
                                 <label for="knowledge">
                                     How has your knowledge and understanding of computer systems changed during this class? *
@@ -82,7 +98,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col col-md-6">
                             <div class="form-group">
                                 <label for="skills">
                                     How have your programming skills changed during this class? *
@@ -93,6 +109,8 @@
                         </div>
                     </div>
                 </div>
+
+                <br>
         
                 <div class="form-group ">
                     <label for="networked">How are networked programs different than the programs you've written before? How do you manage the complexity introduced by this difference? *</label>
