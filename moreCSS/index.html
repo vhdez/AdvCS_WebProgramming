@@ -4,22 +4,29 @@
     <head>
         <!-- This title gets displayed on the tab -->
         <title>More CSS Q3 Reflection</title>
-        <!-- This link loads the Bootstrap CSS stylesheet -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <!-- This meta tag make the text scale correctly on desktop AND mobile browsers. -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- This link and 2 scripts load the Bootstrap CSS stylesheet -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+ 
         <style>
             div.alert-danger {
                 border-style: dashed;
                 border-color: red;
+                font-style: italic
             }
             div.row {
                 border-style: inset;
-                border-color: black;
+                border-color: blue;
             }
             div.col {
                 border-style: groove;
-                border-color: black;
+                border-color: lightskyblue;
+            }
+            textarea {
+                color: red;
             }
        </style>
     </head>
@@ -31,9 +38,6 @@
             </a>
             <a class="navbar-brand" href="Responses.html">
                 Responses
-            </a>
-            <a class="navbar-brand">
-                Mr. Hernandez
             </a>
         </nav>
         
@@ -60,7 +64,7 @@
 
             <!-- Video with 4:3 aspect ratio-->
             <div class="embed-responsive embed-responsive-4by3">
-                <video autoplay loop class="embed-responsive-item">
+                <video controls class="embed-responsive-item">
                     <source src="../assets/videos/AdvCS.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
