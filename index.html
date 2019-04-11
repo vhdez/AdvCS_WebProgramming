@@ -2,20 +2,37 @@
 <html>
     <head>
         <title>Advanced Computer Science HTML and CSS Examples</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- This meta tag make the text scale correctly on desktop AND mobile browsers. -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- This link and 2 scripts load the Bootstrap CSS stylesheet -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </head>
     
-  
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="simpleHTML/index.html">Simple HTML</a>
-            <a class="navbar-brand" href="simpleCSS/index.html">Simple CSS</a>
-            <a class="navbar-brand" href="moreHTML/index.html">More HTML</a>
-            <a class="navbar-brand" href="moreCSS/index.html">More CSS</a>
+        <!-- The nav tag creates a navigation bar at the top. -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">SLA Advanced Computer Science</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="navbar-toggler-icon"></span> 
+                </button>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li><a class="nav-link" href="simpleHTML/index.html">Simple HTML</a></li>
+                        <li><a class="nav-link" href="simpleCSS/index.html">Simple CSS</a></li>
+                        <li><a class="nav-link" href="moreHTML/index.html">More HTML</a></li> 
+                        <li><a class="nav-link" href="moreCSS/index.html">More CSS</a></li> 
+                    </ul>
+                </div>
+            </div>
         </nav>
         <br>
+        <!-- The container div tag puts all later divs into a table-like layout. -->
         <div class="container-fluid">
+            <!-- The alert div tag has danger (red) and info (blue) color options. -->
             <div class="alert alert-danger" role="alert">
                 Use the Navigation Bar above to choose between Mr. Hernandez's 4 examples.
                 <br>
