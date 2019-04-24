@@ -105,7 +105,7 @@
         </div>
 
         <script>
-            
+
             function displayNextQuestions(set) {
                 // set is which set of questions was just displayed
                 if (set > 0 && set < 5) {
@@ -115,15 +115,18 @@
                     // start displaying the next set (questions+button)
                     var nextQuestions = document.getElementById("set"+(set+1));
                     nextQuestions.style.display = "block";
+
+                    // automatically scroll down to new questions
+                    window.location = "#set"+(set+1);
                 }
             }
 
             function done() {
                 // Require feedback or explanation for no feedback
                 var feedbackAnswer = document.getElementById("feedback").value;
-                if (feedbackAnswer == "" || feedbackAnswer == "n/a" || feedbackAnswer == "N/A") {
+                if (feedbackAnswer === "" || feedbackAnswer.toLowerCase() === "n/a") {
                     var whyNoFeedbackAnswer = document.getElementById("whyNoFeedback").value;
-                    if (whyNoFeedbackAnswer == "") {
+                    if (whyNoFeedbackAnswer === "") {
                         displayNextQuestions(4);
                         return;
                     }
