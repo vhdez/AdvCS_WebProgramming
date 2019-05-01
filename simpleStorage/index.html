@@ -116,6 +116,9 @@
 
         <script>
             function displayNextQuestions(set) {
+                // Once next button is pressed, we're no longer talking about restored data.
+                document.getElementById("restored").style.display = "none";
+
                 // set is which set of questions was just displayed
                 if (set > 0 && set < 5) {
                     // stop displaying the current next button 
@@ -125,9 +128,6 @@
                     var nextQuestions = document.getElementById("set"+(set+1));
                     nextQuestions.style.display = "block";
                 }
-
-                // Once next button is pressed, we're no longer talking about restored data.
-                document.getElementById("restored").style.display = "none";
 
                 // automatically scroll down to new questions
                 window.location = "#set"+(set+1);
@@ -139,6 +139,9 @@
             }
 
             function done() {
+                // Once submit button is pressed, we're no longer talking about restored data.
+                document.getElementById("restored").style.display = "none";
+
                 // Require feedback or explanation for no feedback
                 var feedbackAnswer = document.getElementById("feedback").value;
                 if (feedbackAnswer === "" || feedbackAnswer.toLowerCase() === "n/a") {
@@ -154,8 +157,6 @@
                     var nextQuestions = document.getElementById("set"+i);
                     nextQuestions.style.display = "none";
                 }
-                var restoredAlert = document.getElementById("restored");
-                restoredAlert.style.display = "none";
                 // start displaying the thanks alert
                 var thanksAlert = document.getElementById("thanks");
                 thanksAlert.style.display = "block";
@@ -189,6 +190,7 @@
                 var fromNext = window.localStorage.getItem("fromNext");
                 if (fromNext === true) {
                     // We're restoring (window.onload) after next button press, so don't restore
+                    window.localStorage.setItem("fromNext", false);
                     return;
                 }
 
