@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Simple CSS Q3 Reflection with Locally-Stored Answers</title>
+        <!-- This meta tag make the text scale correctly on desktop AND mobile browsers. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- This link and 2 scripts load the Bootstrap CSS stylesheet -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+    
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Advanced CS Reflection</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="navbar-toggler-icon"></span> 
+                </button>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li><a class="nav-link" href="javascript: resetData()">Reset</a></li>
+                        <li><a class="nav-link" href="responses.html">Responses</a></li>
+                    </ul>
+                </div>
+    
+            </div>
+        </nav>
+        
+        <br>
+
+        <div class="container-fluid">
+
+            <div id="restored" class="alert alert-primary" role="alert" style="display:none;">
+                Text input succesfully restored from previous usage.
+            </div>
+
+            <div id="set0" class="alert alert-danger" role="alert">
+                HI! Your email address (MISSING?!?!) will be recorded when you submit this form. Not you? Switch account
+                * Required
+            </div>
+
+            <form id="set1" onsubmit="saveToLocalStorage()">
+                <div class="form-group">
+                    <label for="knowledge">How has your knowledge and understanding of computer systems changed during this class? *</label>
+                    <textarea class="form-control" id="knowledge" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="skills">How have your programming skills changed during this class? *</label>
+                    <textarea class="form-control" id="skills" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="next1" onclick="displayNextQuestions(1)">Next</button>
+                <br>
+            </form>
+
+            <form id="set2" onsubmit="saveToLocalStorage()" style="display:none;">
+                <div class="form-group">
+                    <label for="different">How are networked programs different than the programs you've written before? How do you manage the complexity introduced by this difference? *</label>
+                    <textarea class="form-control" id="different" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="accomplishment">Describe an accomplishment in this class that you are proud of. *</label>
+                    <textarea class="form-control" id="accomplishment" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="next2" onclick="displayNextQuestions(2)">Next</button>
+                <br>
+            </form>
+
+            <form id="set3" onsubmit="saveToLocalStorage()" style="display:none;">
+                <div class="form-group">
+                    <label for="improve">Identify a skill or understanding that you would like to improve. *</label>
+                    <textarea class="form-control" id="improve" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="collaborate">Describe your ability to collaborate on program development and how that has changed during this class. *</label>
+                    <textarea class="form-control" id="collaborate" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="next3" onclick="displayNextQuestions(3)">Next</button>
+                <br>
+            </form>
+
+            <form id="set4" onsubmit="saveToLocalStorage()" style="display:none;">
+                <div class="form-group">
+                    <label for="feedback">Feedback for Mr. Hernandez: *</label>
+                    <textarea class="form-control" id="feedback" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="next4" onclick="done()">Submit</button>
+                <br>
+            </form>
+
+            <form id="set5" onsubmit="saveToLocalStorage()" style="display:none;">
+                <div class="form-group">
+                    <label for="whyNoFeedback">Why did you not leave feedback for Mr. Hernandez? *</label>
+                    <textarea class="form-control" id="whyNoFeedback" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="done()">Submit</button>
+                <br>
+            </form>
+
+            <br>
+
+            <div id="thanks" class="alert alert-primary" role="alert" style="display:none;">
+                Thanks for submitting your answers to this form.  Your answers are saved in local storage.
+            </div>
+
+        </div>
+
+        <script>
+            function displayNextQuestions(set) {
+                // set is which set of questions was just displayed
+                if (set > 0 && set < 5) {
+                    // stop displaying the current next button 
+                    var lastButton = document.getElementById("next"+set);
+                    lastButton.style.display = "none";
+                    // start displaying the next set (questions+button)
+                    var nextQuestions = document.getElementById("set"+(set+1));
+                    nextQuestions.style.display = "block";
+                }
+
+                // Once next button is pressed, we're no longer talking about restored data.
+                document.getElementById("restored").style.display = "none";
+
+                // automatically scroll down to new questions
+                window.location = "#set"+(set+1);
+
+                // save number of last displayed set of questions in local storage
+                window.localStorage.setItem("lastDisplayedSet", set);
+
+                window.localStorage.setItem("fromNext", true);
+            }
+
+            function done() {
+                // Require feedback or explanation for no feedback
+                var feedbackAnswer = document.getElementById("feedback").value;
+                if (feedbackAnswer === "" || feedbackAnswer.toLowerCase() === "n/a") {
+                    var whyNoFeedbackAnswer = document.getElementById("whyNoFeedback").value;
+                    if (whyNoFeedbackAnswer === "") {
+                        displayNextQuestions(4);
+                        return;
+                    }
+                }
+
+                // stop displaying all of the alerts, questions, and buttons 
+                for (var i = 0; i < 6; i = i + 1) {
+                    var nextQuestions = document.getElementById("set"+i);
+                    nextQuestions.style.display = "none";
+                }
+                var restoredAlert = document.getElementById("restored");
+                restoredAlert.style.display = "none";
+                // start displaying the thanks alert
+                var thanksAlert = document.getElementById("thanks");
+                thanksAlert.style.display = "block";
+
+                // not in the middle of form completion any more
+                window.localStorage.setItem("lastDisplayedSet", 0);
+            }
+
+            function saveToLocalStorage() {
+                // dataObject is an JSON Object; it has fields (no methods)
+                // Each field gets a name (on left of :)
+                //             and a value (on right of :)
+                // These field values are the current typed text in each textbox
+                var dataObject = {
+                    "knowledge" :       document.getElementById("knowledge").value,
+                    "skills" :          document.getElementById("skills").value,
+                    "different" :       document.getElementById("different").value,
+                    "accomplishment" :  document.getElementById("accomplishment").value,
+                    "improve" :         document.getElementById("improve").value,
+                    "collaborate" :     document.getElementById("collaborate").value,
+                    "feedback" :        document.getElementById("feedback").value,
+                    "whyNoFeedback" :   document.getElementById("whyNoFeedback").value
+                };
+                // Turn the data object into a string.
+                var dataObjectAsString = JSON.stringify(dataObject);
+                // Store the data object string in local storage in the variable named 'data'.
+                window.localStorage.setItem("data", dataObjectAsString);
+            }
+
+            function restoreFromLocalStorage() {
+                var fromNext = window.localStorage.getItem("fromNext");
+                if (fromNext === true) {
+                    // We're restoring (window.onload) after next button press, so don't restore
+                    return;
+                }
+
+                // Don't restore and display data if form is complete; only Thanks alert needs displaying.
+                if (document.getElementById("thanks").style.display === "block") {
+                    return;
+                }
+
+                // Get the data object string from local storage and try to turn it back into an object.
+                // This takes the data from local storage and sets the textbox to the values.
+                var dataObjectAsString = window.localStorage.getItem("data");
+                if (dataObjectAsString === null) {
+                    return;
+                }
+                var dataObject = JSON.parse(dataObjectAsString);
+                if (dataObject === null) {
+                    return;
+                }
+
+                // We successfully got a data object and now textboxk's can get the saved values.
+                document.getElementById("knowledge").value = dataObject.knowledge;
+                document.getElementById("skills").value = dataObject.skills;
+                document.getElementById("different").value = dataObject.different;
+                document.getElementById("accomplishment").value = dataObject.accomplishment;
+                document.getElementById("improve").value = dataObject.improve;
+                document.getElementById("collaborate").value = dataObject.collaborate;
+                document.getElementById("feedback").value = dataObject.feedback;
+                document.getElementById("whyNoFeedback").value = dataObject.whyNoFeedback;
+
+                // Display Restored alert at top of form
+                document.getElementById("restored").style.display = "block";
+
+                // Go through all previously-completed sets of questions and display them
+                var set = window.localStorage.getItem("lastDisplayedSet");
+                for (var i = 1; i <= set; i = i + 1) {
+                    // stop displaying the current next button 
+                    var lastButton = document.getElementById("next"+i);
+                    lastButton.style.display = "none";
+                    // start displaying the next set (questions+button)
+                    var nextQuestions = document.getElementById("set"+(i+1));
+                    nextQuestions.style.display = "block";
+                }
+                // automatically scroll down to new questions
+                window.location = "#set"+(set+1);
+            }
+
+            window.onload = function() { // Runs code on load
+                restoreFromLocalStorage();
+            };
+
+            function resetData() {
+                // Reset and clear form.
+                window.localStorage.setItem("lastDisplayedSet", 0);
+
+                // Make sure page does not claim it has restored data
+                document.getElementById("restored").style.display = "none";
+                // Make sure page does not claim its done.
+                document.getElementById("thanks").style.display = "none";
+
+                // Forget the previous data object that saved previous responses
+                window.localStorage.setItem("data", null);
+                // Clear all of the textboxes
+                document.getElementById("knowledge").value = "";
+                document.getElementById("skills").value = "";
+                document.getElementById("different").value = "";
+                document.getElementById("accomplishment").value = "";
+                document.getElementById("improve").value = "";
+                document.getElementById("collaborate").value = "";
+                document.getElementById("feedback").value = "";
+                document.getElementById("whyNoFeedback").value = "";
+
+                // scroll back to top of page
+                window.location.reload();
+            }
+
+        </script>
+
+    </body>
+</html>
