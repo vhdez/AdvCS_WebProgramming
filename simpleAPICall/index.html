@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Simple API Call</title>
+        <!-- This meta tag make the text scale correctly on desktop AND mobile browsers. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- This link and 2 scripts load the Bootstrap CSS stylesheet -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+    
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Simple API Call</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="navbar-toggler-icon"></span> 
+                </button>
+    
+            </div>
+        </nav>
+        
+        <br>
+
+        <div class="container-fluid">
+
+            <div class="form-group">
+                <label for="pi">How much of PI do you know? *</label>
+                <textarea class="form-control" id="pi" rows="1" required></textarea>
+                <button onclick="checkPI();">Check</button>
+            </div>
+
+        </div>
+
+        <script>
+
+            var getJSON = function(url, callback) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.responseType = 'json';
+                xhr.onload = function() {
+                    var status = xhr.status;
+                    if (status === 200) {
+                        callback(null, xhr.response);
+                    } else {
+                        callback(status, xhr.response);
+                    }
+                };
+                xhr.send();
+            };
+
+            String.prototype.addAt = function (index, character) {
+                return this.substr(0, index - 1) + character + this.substr(index-1 + character.length-1);
+            }
+
+            function checkPI() {
+                var piDiv = document.getElementById('pi');
+                getJSON('https://api.pi.delivery/v1/pi?numberOfDigits=' + (piDiv.value.length - 1),
+                function(err, data) {
+                    if (err !== null) {
+                        alert('Something went wrong: ' + err);
+                    } else {
+                        if (data.content.addAt(2, '.') === piDiv.value) {
+                            alert(piDiv.value + " is correct!");
+                        } else {
+                            alert(piDiv.value + " is wrong!");
+                        }
+                    }
+                });
+            }
+
+        </script>
+
+    </body>
+</html>
