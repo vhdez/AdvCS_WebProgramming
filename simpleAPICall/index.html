@@ -32,6 +32,15 @@
                 <button onclick="checkPI();">Check</button>
             </div>
 
+            <br>
+
+            <div class="form-group">
+                <label for="harryPotter">Here's a random Harry Potter character:</label>
+                <textarea class="form-control" id="harryPotter" rows="1"></textarea>
+                <label for="harryPotters">Here are all Harry Potter characters:</label>
+                <textarea class="form-control" id="harryPotters" rows="100"></textarea>
+            </div>
+
         </div>
 
         <script>
@@ -60,7 +69,7 @@
                 getJSON('https://api.pi.delivery/v1/pi?numberOfDigits=' + (piDiv.value.length - 1),
                 function(err, data) {
                     if (err !== null) {
-                        alert('Something went wrong: ' + err);
+                        alert('PI API went wrong: ' + err);
                     } else {
                         if (data.content.addAt(2, '.') === piDiv.value) {
                             alert(piDiv.value + " is correct!");
@@ -70,6 +79,37 @@
                     }
                 });
             }
+
+            function randomIntFromInterval(min,max) {
+                // min and max included 
+                return Math.floor(Math.random()*(max-min+1)+min);
+            }
+
+            function harryPotterCharacters() {
+                var harryPotterDiv = document.getElementById('harryPotter');
+                var harryPottersDiv = document.getElementById('harryPotters');
+                getJSON('https://www.potterapi.com/v1/characters?key=$2a$10$VGiXtL8WCaBn4yB.FMC/PuSxiIuQOv4Gp/6WYPiBaF.08R8Wj53vy',
+                function(err, data) {
+                    if (err !== null) {
+                        alert('Harry Potter API went wrong: ' + err);
+                    } else {
+                        var character = data[randomIntFromInterval(0, data.length)];
+                        harryPotterDiv.value = character.name + " of House " + character.house + " whose blood status is " + character.bloodStatus + ".";
+                        
+                        var characters = '';
+                        for (var i = 0; i < data.length; i = i + 1) {
+                            characters = characters + data[i].name + " of House " + data[i].house + " whose blood status is " + data[i].bloodStatus + ".";
+                            characters = characters + '\n';
+                        }
+                        harryPottersDiv.value = characters;
+                    }
+                });
+            }
+
+            window.onload = function() { // Runs code on load
+                harryPotterCharacters();
+            };
+
 
         </script>
 
