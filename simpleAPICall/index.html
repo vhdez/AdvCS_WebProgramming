@@ -88,7 +88,7 @@
             function harryPotterCharacters() {
                 var harryPotterDiv = document.getElementById('harryPotter');
                 var harryPottersDiv = document.getElementById('harryPotters');
-                getJSON('https://www.potterapi.com/v1/characters?key=$2a$10$VGiXtL8WCaBn4yB.FMC/PuSxiIuQOv4Gp/6WYPiBaF.08R8Wj53vy',
+                getJSON('https://cors.io/?https://www.potterapi.com/v1/characters?key=$2a$10$VGiXtL8WCaBn4yB.FMC/PuSxiIuQOv4Gp/6WYPiBaF.08R8Wj53vy',
                 function(err, data) {
                     if (err !== null) {
                         alert('Harry Potter API went wrong: ' + err);
