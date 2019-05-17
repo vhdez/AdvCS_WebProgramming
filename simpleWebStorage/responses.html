@@ -53,10 +53,53 @@
         <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
         <script>
         // Initialize Firebase
-        var config = {
-        };
-        firebase.initializeApp(config);
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyB3MORQTr33wDk1WZXZDkWIoQOHHt1glXA",
+                authDomain: "web-programming-88fcc.firebaseapp.com",
+                databaseURL: "https://web-programming-88fcc.firebaseio.com",
+                projectId: "web-programming-88fcc",
+                storageBucket: "web-programming-88fcc.appspot.com",
+                messagingSenderId: "466016322804",
+                appId: "1:466016322804:web:deba4c26e73d5958"
+            };
+        firebase.initializeApp(firebaseConfig);
+
+        var db = firebase.firestore();
+
+window.onload = function() {
+    db.collection("form").onSnapshot(function(querySnapshot) {
+        document.getElementById('history').innerHTML = "";
+        querySnapshot.forEach((doc) => {
+            var tableRef = document.getElementById('table').getElementsByTagName('tbody')[0];
+            var newRow = tableRef.insertRow(tableRef.rows.length);
+
+            for (var key in doc.data()) {
+                var newCell = newRow.insertCell(0);
+                var newText  = document.createTextNode(doc.data()[key]);
+                newCell.appendChild(newText);
+            }
+            
+            newCell = newRow.insertCell(0);
+            newText = document.createElement("a");
+            newText.setAttribute("href", "javascript:deleteRow(\'" + doc.id + "\')");
+            newText.innerText = "delete";
+            newCell.appendChild(newText);
+
+            console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+        });
+    });
+};
+
+function deleteRow(id) {
+    db.collection("form").doc(id).delete().then(function() {
+        console.log("Document successfully deleted!");
+        window.location.reload();
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+}
+
         </script>
-        <script src="responses.js"></script>
     </body>
 </html>
